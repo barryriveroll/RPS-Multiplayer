@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Rock-Paper-Scissors: Online</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script src="assets/javascript/app.js"></script>
+  </head>
+  <body>
+    <div class="game-board">
+      <div class="hand player-1">
+        <div class="flipped">
+          <div class="finger-fist finger-1"></div>
+          <div class="finger-fist finger-2"></div>
+          <div class="finger-fist finger-3"></div>
+          <div class="finger-fist finger-4"></div>
+          <div class="thumb-fist"></div>
+          <div class="thumb2-fist"></div>
+          <div class="palm-fist"></div>
+          <div class="palm"></div>
+        </div>
+        <div id="player-1-controls" class="controls p-1">
+          <div class="control-button" data-control="rock">
+            <i class="far fa-hand-rock"></i>
+          </div>
+          <div class="control-button" data-control="paper">
+            <i class="far fa-hand-paper"></i>
+          </div>
+          <div class="control-button" data-control="scissors">
+            <i class="far fa-hand-scissors"></i>
+          </div>
+        </div>
+      </div>
+      <div id="game-log"></div>
+      <div class="hand player-2">
+        <div class="class">
+          <div class="finger-fist finger-1"></div>
+          <div class="finger-fist finger-2"></div>
+          <div class="finger-fist finger-3"></div>
+          <div class="finger-fist finger-4"></div>
+          <div class="thumb-fist"></div>
+          <div class="thumb2-fist"></div>
+          <div class="palm-fist"></div>
+          <div class="palm"></div>
+        </div>
+        <div id="player-2-controls" class="controls p-2">
+          <div class="control-button" data-control="rock">
+            <i class="far fa-hand-rock"></i>
+          </div>
+          <div class="control-button" data-control="paper">
+            <i class="far fa-hand-paper"></i>
+          </div>
+          <div class="control-button" data-control="scissors">
+            <i class="far fa-hand-scissors"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

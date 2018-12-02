@@ -1,0 +1,139 @@
+.game-board {
+  width: 800px;
+  margin: 0 auto;
+  margin-top: 160px;
+}
+p {
+  margin: 0;
+}
+#game-log {
+  width: 290px;
+  float: left;
+  text-align: center;
+}
+#hand-main {
+  width: 190px;
+  height: 190px;
+  background: tan;
+  border-radius: 21px;
+  position: absolute;
+  left: 30px;
+}
+.palm {
+  transform: rotate(90deg);
+  border-bottom: 145px solid #ab896b;
+  border-left: 20px solid transparent;
+  border-right: 16px solid transparent;
+  width: 148px;
+  z-index: -1;
+  position: relative;
+  top: -410px;
+  left: 30px;
+}
+.hand {
+  position: relative;
+  margin: 40px;
+  width: 175px;
+  height: 175px;
+  z-index: 1;
+}
+.control-button {
+  float: right;
+  margin: 3px;
+  padding: 4px;
+  font-size: 40px;
+  background: lightcyan;
+  width: 50px;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid;
+  box-shadow: 2px 2px 3px #0000007a;
+  cursor: pointer;
+}
+.controls {
+  position: absolute;
+  top: 210px;
+  width: 200px;
+  right: -10px;
+  display: none;
+}
+.flipped {
+  transform: rotateY(180deg);
+}
+.player-1 {
+  float: left;
+}
+.player-2 {
+  float: right;
+}
+#trapezoid2 {
+  border-bottom: 100px solid red;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  height: 0;
+  width: 100px;
+}
+
+.finger-fist {
+  width: 100px;
+  height: 45px;
+  background: #b19878;
+  box-shadow: 3px 3px 1px #655c54;
+  border-radius: 17px;
+  position: relative;
+  margin-bottom: 3px;
+  left: -7px;
+}
+.finger-1 {
+  transform: rotate(2deg);
+}
+.finger-2 {
+  transform: rotate(0deg);
+  left: -12px;
+}
+.finger-3 {
+  transform: rotate(-4deg);
+  width: 95px;
+  left: 0px;
+}
+.finger-4 {
+  transform: rotate(-10deg);
+  width: 89px;
+  left: 9px;
+}
+.thumb-fist {
+  width: 45px;
+  height: 81px;
+  background: #bda382;
+  transform: rotate(-8deg);
+  box-shadow: 3px 3px 1px #655c54;
+  border-radius: 17px;
+  position: relative;
+  margin-bottom: 3px;
+  left: 30px;
+  top: -202px;
+}
+.thumb2-fist {
+  width: 97px;
+  height: 56px;
+  background: #bda585;
+  transform: rotate(-16deg);
+  box-shadow: 3px 3px 1px #655c54;
+  border-radius: 17px;
+  position: relative;
+  margin-bottom: 3px;
+  left: 39px;
+  top: -298px;
+}
+.palm-fist {
+  width: 116px;
+  height: 92px;
+  background: #bda585;
+  transform: rotate(28deg);
+  box-shadow: 3px 3px 1px #655c54;
+  border-radius: 44px;
+  position: relative;
+  margin-bottom: 3px;
+  left: 83px;
+  top: -352px;
+}
