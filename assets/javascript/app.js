@@ -20,11 +20,18 @@ var player1ChoiceRef = database.ref("player1Choice");
 var player2ChoiceRef = database.ref("player2Choice");
 var player1Choice = "";
 var player2Choice = "";
+var player1Nickname = database.ref("player1Nickname");
+var player2Nickname = database.ref("player2Nickname");
+var nickname1 = "";
+var nickname2 = "";
+var chatMessage = database.ref("chatMessage");
 
 // When the client's connection state changes...
 connectedRef.on("value", function(snap) {
   // If they are connected..
   if (snap.val()) {
+    // enable "connect" button
+    // $("#connect-button").css("display", "inline-block");
     // Add user to the connections list.
     var con = connectionsRef.push(true);
 
@@ -38,12 +45,16 @@ connectionsRef.on("value", function(snapshot) {
   // Display the viewer count in the html.
   if (snapshot.numChildren() < 2) {
     playerNum = 1;
-    $("#game-log").append("<p>Waiting for player 2 to connect...</p>");
+    $("#game-text").append(
+      "<p class='game-info'>Waiting for player 2 to connect...</p>"
+    );
   } else {
     if (playerNum === 0) {
       playerNum = 2;
     }
-    $("#game-log").append("<p>The game is ready to begin!</p>");
+    $("#game-text").append(
+      "<p class='game-info'>The game is ready to begin!</p>"
+    );
     gameTurnRef.set(1);
   }
 });
@@ -51,12 +62,13 @@ connectionsRef.on("value", function(snapshot) {
 gameTurnRef.on("value", function(snapshot) {
   playerTurn = snapshot.val();
   if (playerTurn === 3) {
-    // EVALUATE WIN/LOSS LOGIC HERE
     $("#player-1-controls").css("display", "none");
     $("#player-2-controls").css("display", "none");
-    evalWinner();
+    evalWinner(); // game logic here
   } else if (playerTurn > 0) {
-    $("#game-log").append("<p>Player " + playerTurn + "'s turn!</p>");
+    $("#game-text").append(
+      "<p class='game-info'>Player " + playerTurn + "'s turn!</p>"
+    );
     if (playerTurn === 1) {
       $("#player-2-controls").css("display", "none");
       if (playerNum === playerTurn) {
@@ -72,18 +84,35 @@ gameTurnRef.on("value", function(snapshot) {
   }
 });
 
+chatMessage.on("value", function(snapshot) {
+  var newChat = snapshot.val();
+  if (newChat != "") {
+    $("#game-text").append("<p class='chat-info'>" + newChat + "</p>");
+    $("#game-text").scrollTop($("#game-text")[0].scrollHeight);
+    chatMessage.set("");
+  }
+});
+
 player1ChoiceRef.on("value", function(snapshot) {
   player1Choice = snapshot.val();
 });
 player2ChoiceRef.on("value", function(snapshot) {
   player2Choice = snapshot.val();
 });
+player1Nickname.on("value", function(snapshot) {
+  nickname1 = snapshot.val();
+  $("#nickname-display-1").text(nickname1);
+});
+player2Nickname.on("value", function(snapshot) {
+  nickname2 = snapshot.val();
+  $("#nickname-display-2").text(nickname2);
+});
 
 function evalWinner() {
   if (player1Choice === player2Choice) {
     // draw
-    $("#game-log").append(
-      "<p>Draw! Both players chose " + player1Choice + "!</p>"
+    $("#game-text").append(
+      "<p class='game-info'>Draw! Both players chose " + player1Choice + "!</p>"
     );
   } else if (
     (player1Choice === "rock" && player2Choice === "scissors") ||
@@ -91,15 +120,57 @@ function evalWinner() {
     (player1Choice === "paper" && player2Choice === "rock")
   ) {
     //player 1 win
-    $("#game-log").append("<p>Player 1 wins with " + player1Choice + "!</p>");
+    $("#game-text").append(
+      "<p class='game-info'>Player 1 wins with " + player1Choice + "!</p>"
+    );
   } else {
     // player 2 win
-    $("#game-log").append("<p>Player 2 wins with " + player2Choice + "!</p>");
+    $("#game-text").append(
+      "<p class='game-info'>Player 2 wins with " + player2Choice + "!</p>"
+    );
   }
   gameTurnRef.set(1);
 }
 
 $(document).ready(function() {
+  $("#connect-button").on("click", function() {
+    var con = connectionsRef.push(true);
+  });
+
+  $("#chat-button").on("click", function(e) {
+    e.preventDefault();
+    var messageNickname = "";
+    if (playerNum === 1) {
+      messageNickname = nickname1;
+    } else {
+      messageNickname = nickname2;
+    }
+    chatMessage.set(
+      "<span class='chat-name'>" +
+        messageNickname +
+        "</span>: " +
+        $("#chat-input")
+          .val()
+          .trim()
+    );
+    $("#chat-input").val("");
+  });
+
+  $("#nickname-button").on("click", function(e) {
+    e.preventDefault();
+    var nicknameInput = $("#nickname-input")
+      .val()
+      .trim();
+    if (nicknameInput != "") {
+      if (playerNum === 1) {
+        player1Nickname.set(nicknameInput);
+      } else {
+        player2Nickname.set(nicknameInput);
+      }
+    }
+    $("#nickname-input").val("");
+  });
+
   $(".control-button").on("click", function() {
     var choice = $(this).attr("data-control");
 
@@ -127,4 +198,5 @@ $(document).ready(function() {
   });
 
   gameTurnRef.set(0);
+  $("#nickname-display").text(nickname1);
 });

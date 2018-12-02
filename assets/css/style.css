@@ -1,15 +1,45 @@
-.game-board {
+.ui-top {
   width: 800px;
   margin: 0 auto;
-  margin-top: 160px;
+}
+.game-board {
+  width: 800px;
+  height: 360px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+.name-div {
+  position: absolute;
+  bottom: -106px;
 }
 p {
   margin: 0;
 }
+.game-info {
+  color: gray;
+  font-style: italic;
+}
 #game-log {
-  width: 290px;
-  float: left;
-  text-align: center;
+  width: 500px;
+  margin: 0 auto;
+  /* text-align: center; */
+  height: 140px;
+  margin-top: 40px;
+}
+#game-text {
+  height: 120px;
+  overflow-y: scroll;
+  background: white;
+}
+#chat-input {
+  width: 86%;
+}
+.chat-name {
+  font-weight: 900;
+  font-size: 20px;
+}
+#connect-button {
+  display: none;
 }
 #hand-main {
   width: 190px;
@@ -30,6 +60,17 @@ p {
   top: -410px;
   left: 30px;
 }
+.palm2 {
+  width: 167px;
+  transform: rotate(20deg);
+  height: 167px;
+  background: #ab896b;
+  position: absolute;
+  border-bottom-right-radius: 165px;
+  top: 51px;
+  left: 47px;
+  z-index: -1;
+}
 .hand {
   position: relative;
   margin: 40px;
@@ -38,7 +79,7 @@ p {
   z-index: 1;
 }
 .control-button {
-  float: right;
+  float: left;
   margin: 3px;
   padding: 4px;
   font-size: 40px;
@@ -52,13 +93,17 @@ p {
 }
 .controls {
   position: absolute;
-  top: 210px;
+  top: 270px;
   width: 200px;
   right: -10px;
   display: none;
 }
 .flipped {
   transform: rotateY(180deg);
+}
+.regular,
+.flipped {
+  height: 150px;
 }
 .player-1 {
   float: left;
@@ -79,27 +124,35 @@ p {
   height: 45px;
   background: #b19878;
   box-shadow: 3px 3px 1px #655c54;
-  border-radius: 17px;
+  border-radius: 22px;
   position: relative;
   margin-bottom: 3px;
   left: -7px;
 }
 .finger-1 {
-  transform: rotate(2deg);
+  transform: rotate(3deg);
+  width: 94px;
+  height: 46px;
 }
 .finger-2 {
   transform: rotate(0deg);
   left: -12px;
+  top: -2px;
+  height: 50px;
 }
 .finger-3 {
   transform: rotate(-4deg);
   width: 95px;
-  left: 0px;
+  height: 43px;
+  left: -3px;
+  top: -3px;
 }
 .finger-4 {
   transform: rotate(-10deg);
-  width: 89px;
+  width: 86px;
   left: 9px;
+  height: 41px;
+  top: -5px;
 }
 .thumb-fist {
   width: 45px;
