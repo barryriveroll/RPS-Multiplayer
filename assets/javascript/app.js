@@ -30,8 +30,6 @@ var chatMessage = database.ref("chatMessage");
 connectedRef.on("value", function(snap) {
   // If they are connected..
   if (snap.val()) {
-    // enable "connect" button
-    // $("#connect-button").css("display", "inline-block");
     // Add user to the connections list.
     var con = connectionsRef.push(true);
 
@@ -57,6 +55,7 @@ connectionsRef.on("value", function(snapshot) {
     );
     gameTurnRef.set(1);
   }
+  $("#game-text").scrollTop($("#game-text")[0].scrollHeight);
 });
 
 gameTurnRef.on("value", function(snapshot) {
@@ -79,8 +78,8 @@ gameTurnRef.on("value", function(snapshot) {
       if (playerNum === playerTurn) {
         $("#player-2-controls").css("display", "block");
       }
-    } else if (playerTurn === 3) {
     }
+    $("#game-text").scrollTop($("#game-text")[0].scrollHeight);
   }
 });
 
@@ -108,7 +107,37 @@ player2Nickname.on("value", function(snapshot) {
   $("#nickname-display-2").text(nickname2);
 });
 
+function toggleHands() {
+  if (player1Choice === "scissors") {
+    $("#p1-f1").toggleClass("finger-1-scissor");
+    $("#p1-f2").toggleClass("finger-2-scissor");
+  } else if (player1Choice === "paper") {
+    $("#p1-f1").toggleClass("finger-1-paper");
+    $("#p1-f2").toggleClass("finger-2-paper");
+    $("#p1-f3").toggleClass("finger-3-paper");
+    $("#p1-f4").toggleClass("finger-4-paper");
+    $("#p1-t1").toggleClass("thumb-fist-paper");
+    $("#p1-t2").toggleClass("thumb2-fist-paper");
+    $("#p1-t3").toggleClass("palm-fist-paper");
+  }
+
+  if (player2Choice === "scissors") {
+    $("#p2-f1").toggleClass("finger-1-scissor");
+    $("#p2-f2").toggleClass("finger-2-scissor");
+  } else if (player2Choice === "paper") {
+    $("#p2-f1").toggleClass("finger-1-paper");
+    $("#p2-f2").toggleClass("finger-2-paper");
+    $("#p2-f3").toggleClass("finger-3-paper");
+    $("#p2-f4").toggleClass("finger-4-paper");
+    $("#p2-t1").toggleClass("thumb-fist-paper");
+    $("#p2-t2").toggleClass("thumb2-fist-paper");
+    $("#p2-t3").toggleClass("palm-fist-paper");
+  }
+}
+
 function evalWinner() {
+  toggleHands();
+
   if (player1Choice === player2Choice) {
     // draw
     $("#game-text").append(
@@ -130,6 +159,11 @@ function evalWinner() {
     );
   }
   gameTurnRef.set(1);
+  $("#game-text").scrollTop($("#game-text")[0].scrollHeight);
+
+  setTimeout(function() {
+    toggleHands();
+  }, 2000);
 }
 
 $(document).ready(function() {

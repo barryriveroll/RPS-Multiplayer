@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Rock-Paper-Scissors: Online</title>
+    <title>Rock, Paper, Scissors: Multiplayer</title>
     <link rel="stylesheet" href="assets/css/style.css" />
     <link
       rel="stylesheet"
@@ -12,13 +12,17 @@
       integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
       crossorigin="anonymous"
     />
+    <link
+      href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i"
+      rel="stylesheet"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
     <script src="assets/javascript/app.js"></script>
   </head>
   <body>
     <div class="ui-top">
-      <h2 class="title">Rock, Paper, Scissors: Multiplayer</h2>
+      <h1 class="title">Rock, Paper, Scissors: Multiplayer</h1>
       <form autocomplete="off" class="nickname-div">
         <input type="text" id="nickname-input" maxlength="16" />
         <input type="submit" id="nickname-button" value="Change nickname" />
@@ -28,17 +32,17 @@
     <div class="game-board">
       <div class="hand player-1">
         <div class="name-div">
-          <h4 class="player-1-text">Player 1</h4>
-          <h2 id="nickname-display-1"></h2>
+          <h4 class="player-text">Player 1</h4>
+          <h2 id="nickname-display-1" class="name-display"></h2>
         </div>
-        <div class="flipped">
-          <div class="finger-fist finger-1"></div>
-          <div class="finger-fist finger-2"></div>
-          <div class="finger-fist finger-3"></div>
-          <div class="finger-fist finger-4"></div>
-          <div class="thumb-fist"></div>
-          <div class="thumb2-fist"></div>
-          <div class="palm-fist"></div>
+        <div class="p1-hand">
+          <div id="p1-f1" class="finger-fist finger-1"></div>
+          <div id="p1-f2" class="finger-fist finger-2"></div>
+          <div id="p1-f3" class="finger-fist finger-3"></div>
+          <div id="p1-f4" class="finger-fist finger-4"></div>
+          <div id="p1-t1" class="thumb-fist"></div>
+          <div id="p1-t2" class="thumb2-fist"></div>
+          <div id="p1-t3" class="palm-fist"></div>
           <div class="palm"></div>
         </div>
         <div id="player-1-controls" class="controls p-1">
@@ -55,17 +59,17 @@
       </div>
       <div class="hand player-2">
         <div class="name-div">
-          <h4 class="player-1-text">Player 2</h4>
-          <h2 id="nickname-display-2"></h2>
+          <h4 class="player-text">Player 2</h4>
+          <h2 id="nickname-display-2" class="name-display"></h2>
         </div>
-        <div class="regular">
-          <div class="finger-fist finger-1"></div>
-          <div class="finger-fist finger-2"></div>
-          <div class="finger-fist finger-3"></div>
-          <div class="finger-fist finger-4"></div>
-          <div class="thumb-fist"></div>
-          <div class="thumb2-fist"></div>
-          <div class="palm-fist"></div>
+        <div class="p2-hand">
+          <div id="p2-f1" class="finger-fist finger-1"></div>
+          <div id="p2-f2" class="finger-fist finger-2"></div>
+          <div id="p2-f3" class="finger-fist finger-3"></div>
+          <div id="p2-f4" class="finger-fist finger-4"></div>
+          <div id="p2-t1" class="thumb-fist"></div>
+          <div id="p2-t2" class="thumb2-fist"></div>
+          <div id="p2-t3" class="palm-fist"></div>
           <div class="palm"></div>
         </div>
         <div id="player-2-controls" class="controls p-2">

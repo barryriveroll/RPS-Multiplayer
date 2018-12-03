@@ -1,46 +1,10 @@
-.ui-top {
-  width: 800px;
-  margin: 0 auto;
+html {
+  font-family: "Josefin Sans", sans-serif;
+  background: powderblue;
+  /* background: linear-gradient(lightpink, indianred) fixed; */
 }
-.game-board {
-  width: 800px;
-  height: 360px;
-  margin: 0 auto;
-  margin-top: 30px;
-}
-.name-div {
-  position: absolute;
-  bottom: -106px;
-}
-p {
-  margin: 0;
-}
-.game-info {
-  color: gray;
-  font-style: italic;
-}
-#game-log {
-  width: 500px;
-  margin: 0 auto;
-  /* text-align: center; */
-  height: 140px;
-  margin-top: 40px;
-}
-#game-text {
-  height: 120px;
-  overflow-y: scroll;
-  background: white;
-}
-#chat-input {
-  width: 86%;
-}
-.chat-name {
-  font-weight: 900;
-  font-size: 20px;
-}
-#connect-button {
-  display: none;
-}
+
+/* #region HANDS */
 #hand-main {
   width: 190px;
   height: 190px;
@@ -51,7 +15,7 @@ p {
 }
 .palm {
   transform: rotate(90deg);
-  border-bottom: 145px solid #ab896b;
+  border-bottom: 145px solid #af9778;
   border-left: 20px solid transparent;
   border-right: 16px solid transparent;
   width: 148px;
@@ -78,12 +42,238 @@ p {
   height: 175px;
   z-index: 1;
 }
+.p1-hand {
+  transform: rotateY(180deg);
+}
+.p2-hand,
+.p1-hand {
+  height: 150px;
+}
+.finger-fist {
+  width: 100px;
+  height: 45px;
+  background: #bda585;
+  box-shadow: 3px 3px 1px #655c54;
+  border-radius: 22px;
+  position: relative;
+  margin-bottom: 3px;
+  left: -7px;
+}
+.finger-1 {
+  transform: rotate(3deg);
+  width: 94px;
+  height: 46px;
+}
+.finger-1-scissor {
+  transform: rotate(7deg);
+  width: 148px;
+  height: 47px;
+  left: -97px;
+}
+.finger-1-paper {
+  transform: rotate(13deg);
+  width: 149px;
+  height: 47px;
+  top: -15px;
+  left: -80px;
+}
+.finger-2 {
+  transform: rotate(0deg);
+  left: -12px;
+  top: -2px;
+  height: 50px;
+}
+.finger-2-scissor {
+  transform: rotate(-5deg);
+  left: -99px;
+  top: 5px;
+  height: 48px;
+  width: 160px;
+}
+.finger-2-paper {
+  transform: rotate(-1deg);
+  left: -99px;
+  top: -3px;
+  height: 48px;
+  width: 160px;
+}
+.finger-3 {
+  transform: rotate(-4deg);
+  width: 95px;
+  height: 43px;
+  left: -3px;
+  top: -3px;
+}
+.finger-3-paper {
+  transform: rotate(-13deg);
+  width: 146px;
+  height: 43px;
+  left: -81px;
+  top: 6px;
+}
+.finger-4 {
+  transform: rotate(-10deg);
+  width: 86px;
+  left: 9px;
+  height: 41px;
+  top: -5px;
+}
+.finger-4-paper {
+  transform: rotate(-29deg);
+  width: 117px;
+  left: -42px;
+  height: 41px;
+  top: 11px;
+}
+.thumb-fist {
+  width: 45px;
+  height: 81px;
+  background: #bda382;
+  transform: rotate(-8deg);
+  box-shadow: 1px 2px 5px 1px #655c54;
+  border-radius: 17px;
+  position: relative;
+  margin-bottom: 3px;
+  left: 30px;
+  top: -202px;
+}
+.thumb-fist-paper {
+  width: 45px;
+  height: 80px;
+  background: #bda382;
+  transform: rotate(-39deg);
+  box-shadow: -1px 3px 1px 1px #655c54;
+  border-radius: 23px;
+  position: relative;
+  margin-bottom: 3px;
+  left: 53px;
+  top: -289px;
+}
+.thumb2-fist {
+  width: 119px;
+  height: 57px;
+  background: #bda585;
+  transform: rotate(-16deg);
+  box-shadow: 3px 3px 1px #655c54;
+  border-radius: 20px;
+  border-bottom-left-radius: 64px;
+  border-top-right-radius: 56px;
+  position: relative;
+  margin-bottom: 3px;
+  left: 39px;
+  top: -301px;
+}
+.thumb2-fist-paper {
+  width: 119px;
+  height: 55px;
+  background: #bda585;
+  transform: rotate(39deg);
+  box-shadow: 3px 3px 1px #655c54;
+  border-radius: 20px;
+  border-bottom-left-radius: 64px;
+  border-top-right-radius: 56px;
+  position: relative;
+  margin-bottom: 3px;
+  left: 55px;
+  top: -322px;
+}
+.palm-fist {
+  width: 116px;
+  height: 92px;
+  background: #bda585;
+  transform: rotate(28deg);
+  box-shadow: 3px 3px 1px #655c54;
+  border-radius: 44px;
+  position: relative;
+  margin-bottom: 3px;
+  left: 86px;
+  top: -357px;
+}
+.palm-fist-paper {
+  width: 116px;
+  height: 92px;
+  background: #bda585;
+  transform: rotate(42deg);
+  box-shadow: 3px 3px 1px #655c54;
+  border-radius: 44px;
+  position: relative;
+  margin-bottom: 3px;
+  left: 86px;
+  top: -357px;
+}
+/* #endregion */
+
+.ui-top {
+  width: 800px;
+  margin: 0 auto;
+}
+.title {
+  text-align: center;
+}
+.nickname-div {
+  width: 302px;
+  margin: auto;
+}
+.game-board {
+  width: 800px;
+  height: 360px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+.name-div {
+  position: absolute;
+  bottom: -105px;
+  width: 175px;
+}
+.player-text {
+  margin: 0px;
+  text-align: center;
+}
+.name-display {
+  margin-top: 5px;
+  text-align: center;
+}
+p {
+  margin: 0;
+}
+.game-info {
+  color: gray;
+  font-style: italic;
+}
+#game-log {
+  width: 500px;
+  margin: 0 auto;
+  height: 140px;
+  margin-top: 40px;
+}
+#game-text {
+  height: 120px;
+  overflow-y: scroll;
+  background: white;
+  padding: 6px;
+}
+#chat-input {
+  width: 86%;
+  margin-right: -6px;
+}
+#chat-button {
+  width: 67px;
+  margin-right: -1px;
+}
+.chat-name {
+  font-weight: 900;
+  font-size: 20px;
+}
+#connect-button {
+  display: none;
+}
+
 .control-button {
   float: left;
   margin: 3px;
   padding: 4px;
   font-size: 40px;
-  background: lightcyan;
+  background: lightsalmon;
   width: 50px;
   text-align: center;
   border-radius: 10px;
@@ -98,13 +288,7 @@ p {
   right: -10px;
   display: none;
 }
-.flipped {
-  transform: rotateY(180deg);
-}
-.regular,
-.flipped {
-  height: 150px;
-}
+
 .player-1 {
   float: left;
 }
@@ -117,76 +301,4 @@ p {
   border-right: 25px solid transparent;
   height: 0;
   width: 100px;
-}
-
-.finger-fist {
-  width: 100px;
-  height: 45px;
-  background: #b19878;
-  box-shadow: 3px 3px 1px #655c54;
-  border-radius: 22px;
-  position: relative;
-  margin-bottom: 3px;
-  left: -7px;
-}
-.finger-1 {
-  transform: rotate(3deg);
-  width: 94px;
-  height: 46px;
-}
-.finger-2 {
-  transform: rotate(0deg);
-  left: -12px;
-  top: -2px;
-  height: 50px;
-}
-.finger-3 {
-  transform: rotate(-4deg);
-  width: 95px;
-  height: 43px;
-  left: -3px;
-  top: -3px;
-}
-.finger-4 {
-  transform: rotate(-10deg);
-  width: 86px;
-  left: 9px;
-  height: 41px;
-  top: -5px;
-}
-.thumb-fist {
-  width: 45px;
-  height: 81px;
-  background: #bda382;
-  transform: rotate(-8deg);
-  box-shadow: 3px 3px 1px #655c54;
-  border-radius: 17px;
-  position: relative;
-  margin-bottom: 3px;
-  left: 30px;
-  top: -202px;
-}
-.thumb2-fist {
-  width: 97px;
-  height: 56px;
-  background: #bda585;
-  transform: rotate(-16deg);
-  box-shadow: 3px 3px 1px #655c54;
-  border-radius: 17px;
-  position: relative;
-  margin-bottom: 3px;
-  left: 39px;
-  top: -298px;
-}
-.palm-fist {
-  width: 116px;
-  height: 92px;
-  background: #bda585;
-  transform: rotate(28deg);
-  box-shadow: 3px 3px 1px #655c54;
-  border-radius: 44px;
-  position: relative;
-  margin-bottom: 3px;
-  left: 83px;
-  top: -352px;
 }
