@@ -25,6 +25,26 @@ var player2Nickname = database.ref("player2Nickname");
 var nickname1 = "";
 var nickname2 = "";
 var chatMessage = database.ref("chatMessage");
+var gameActive = false;
+
+function restartGame(currentPlayer) {
+  alert("restart");
+  var dcName = "";
+  if (currentPlayer === 1) {
+    dcName = nickname2;
+  } else {
+    dcName = nickname1;
+    player1Nickname.set(nickname2);
+  }
+  $("#nickname-display-2").text("Waiting for player...");
+
+  $("#player-1-controls").css("display", "none");
+  $("#player-2-controls").css("display", "none");
+  $("#game-text").append(
+    "<p class='game-info'>" + dcName + " has disconnected.</p>"
+  );
+  $("#game-text").scrollTop($("#game-text")[0].scrollHeight);
+}
 
 // When the client's connection state changes...
 connectedRef.on("value", function(snap) {
@@ -42,20 +62,26 @@ connectedRef.on("value", function(snap) {
 connectionsRef.on("value", function(snapshot) {
   // Display the viewer count in the html.
   if (snapshot.numChildren() < 2) {
+    if (gameActive) {
+      restartGame(playerNum);
+      gameActive = false;
+    }
     playerNum = 1;
     $("#game-text").append(
       "<p class='game-info'>Waiting for player 2 to connect...</p>"
     );
+    player2Nickname.set("Waiting for P2...");
   } else {
     if (playerNum === 0) {
       playerNum = 2;
     }
-    $("#game-text").append(
-      "<p class='game-info'>The game is ready to begin!</p>"
-    );
-    gameTurnRef.set(1);
+    $("#game-text").append("<p class='game-info'>P2 has connected.</p>");
+
+    player2Nickname.set("P2");
+    gameActive = true;
   }
   $("#game-text").scrollTop($("#game-text")[0].scrollHeight);
+  init();
 });
 
 gameTurnRef.on("value", function(snapshot) {
@@ -100,10 +126,12 @@ player2ChoiceRef.on("value", function(snapshot) {
 });
 player1Nickname.on("value", function(snapshot) {
   nickname1 = snapshot.val();
+  // sessionStorage.setItem("nickname", nickname1);
   $("#nickname-display-1").text(nickname1);
 });
 player2Nickname.on("value", function(snapshot) {
   nickname2 = snapshot.val();
+  // sessionStorage.setItem("nickname", nickname2);
   $("#nickname-display-2").text(nickname2);
 });
 
@@ -166,6 +194,25 @@ function evalWinner() {
   }, 2000);
 }
 
+function init() {
+  if (gameActive) {
+    gameTurnRef.set(1);
+  } else {
+    gameTurnRef.set(0);
+  }
+  $("#nickname-display").text(nickname1);
+  // var localName = sessionStorage.getItem("nickname");
+  if (playerNum === 1) {
+    if (nickname1 != "") {
+      player1Nickname.set(nickname1);
+    } else {
+      player1Nickname.set("P1");
+    }
+  } else {
+    player2Nickname.set("P2");
+  }
+}
+
 $(document).ready(function() {
   $("#connect-button").on("click", function() {
     var con = connectionsRef.push(true);
@@ -195,6 +242,7 @@ $(document).ready(function() {
     var nicknameInput = $("#nickname-input")
       .val()
       .trim();
+    // sessionStorage.setItem("nickname", nicknameInput);
     if (nicknameInput != "") {
       if (playerNum === 1) {
         player1Nickname.set(nicknameInput);
@@ -230,7 +278,4 @@ $(document).ready(function() {
       }
     }
   });
-
-  gameTurnRef.set(0);
-  $("#nickname-display").text(nickname1);
 });
