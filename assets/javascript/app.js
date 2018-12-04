@@ -24,11 +24,14 @@ var player1Nickname = database.ref("player1Nickname");
 var player2Nickname = database.ref("player2Nickname");
 var nickname1 = "";
 var nickname2 = "";
+var p1PointsRef = database.ref("p1Points");
+var p1Points = 0;
+var p2Points = 0;
+var p2PointsRef = database.ref("p2Points");
 var chatMessage = database.ref("chatMessage");
 var gameActive = false;
 
 function restartGame(currentPlayer) {
-  alert("restart");
   var dcName = "";
   if (currentPlayer === 1) {
     dcName = nickname2;
@@ -44,6 +47,10 @@ function restartGame(currentPlayer) {
     "<p class='game-info'>" + dcName + " has disconnected.</p>"
   );
   $("#game-text").scrollTop($("#game-text")[0].scrollHeight);
+  p1Points = 0;
+  p2Points = 0;
+  p1PointsRef.set(p1Points);
+  p2PointsRef.set(p2Points);
 }
 
 // When the client's connection state changes...
@@ -134,6 +141,12 @@ player2Nickname.on("value", function(snapshot) {
   // sessionStorage.setItem("nickname", nickname2);
   $("#nickname-display-2").text(nickname2);
 });
+p1PointsRef.on("value", function(snapshot) {
+  $("#player-1-points").text(snapshot.val());
+});
+p2PointsRef.on("value", function(snapshot) {
+  $("#player-2-points").text(snapshot.val());
+});
 
 function toggleHands() {
   if (player1Choice === "scissors") {
@@ -177,11 +190,15 @@ function evalWinner() {
     (player1Choice === "paper" && player2Choice === "rock")
   ) {
     //player 1 win
+    p1Points++;
+    p1PointsRef.set(p1Points);
     $("#game-text").append(
       "<p class='game-info'>Player 1 wins with " + player1Choice + "!</p>"
     );
   } else {
     // player 2 win
+    p2Points++;
+    p2PointsRef.set(p2Points);
     $("#game-text").append(
       "<p class='game-info'>Player 2 wins with " + player2Choice + "!</p>"
     );
@@ -211,6 +228,8 @@ function init() {
   } else {
     player2Nickname.set("P2");
   }
+  p1PointsRef.set(p1Points);
+  p2PointsRef.set(p2Points);
 }
 
 $(document).ready(function() {
@@ -263,7 +282,6 @@ $(document).ready(function() {
           .parent()
           .hasClass("p-1")
       ) {
-        console.log("Player 1 picked " + choice);
         player1ChoiceRef.set(choice);
         gameTurnRef.set(2);
       } else if (
@@ -272,10 +290,10 @@ $(document).ready(function() {
           .parent()
           .hasClass("p-2")
       ) {
-        console.log("Player 2 picked " + choice);
         player2ChoiceRef.set(choice);
         gameTurnRef.set(3);
       }
     }
+    choice = "";
   });
 });

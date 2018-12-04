@@ -219,12 +219,11 @@ html {
 }
 .game-board {
   width: 800px;
-  height: 360px;
+  height: 260px;
   margin: 0 auto;
   margin-top: 30px;
 }
 .name-div {
-  position: absolute;
   bottom: -105px;
   width: 175px;
 }
@@ -235,6 +234,7 @@ html {
 .name-display {
   margin-top: 5px;
   text-align: center;
+  margin-bottom: 5px;
 }
 p {
   margin: 0;
@@ -247,7 +247,7 @@ p {
   width: 500px;
   margin: 0 auto;
   height: 140px;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 #game-text {
   height: 120px;
@@ -270,7 +270,12 @@ p {
 #connect-button {
   display: none;
 }
-
+.ui-bottom,
+.ui-controls {
+  width: 800px;
+  height: 50px;
+  margin: 0 auto;
+}
 .control-button {
   float: left;
   margin: 3px;
@@ -285,12 +290,32 @@ p {
   cursor: pointer;
 }
 .controls {
-  position: absolute;
   top: 270px;
   width: 200px;
   right: -10px;
   display: none;
 }
+/* #region SCOREBOARD */
+.score-board {
+  position: relative;
+  width: 220px;
+  left: 40px;
+  float: left;
+  /* margin: 0 auto; */
+  margin-top: 90px;
+}
+.player-1-score {
+  width: 100px;
+  float: left;
+}
+.player-2-score {
+  text-align: right;
+}
+.score {
+  font-size: 60px;
+  padding: 5px;
+}
+/* #endregion */
 
 .player-1 {
   float: left;

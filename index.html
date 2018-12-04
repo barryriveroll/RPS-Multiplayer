@@ -31,10 +31,6 @@
     </div>
     <div class="game-board">
       <div class="hand player-1">
-        <div class="name-div">
-          <h4 class="player-text">Player 1</h4>
-          <h2 id="nickname-display-1" class="name-display"></h2>
-        </div>
         <div class="p1-hand">
           <div id="p1-f1" class="finger-fist finger-1"></div>
           <div id="p1-f2" class="finger-fist finger-2"></div>
@@ -45,23 +41,19 @@
           <div id="p1-t3" class="palm-fist"></div>
           <div class="palm"></div>
         </div>
-        <div id="player-1-controls" class="controls p-1">
-          <div class="control-button" data-control="rock">
-            <i class="far fa-hand-rock"></i>
-          </div>
-          <div class="control-button" data-control="paper">
-            <i class="far fa-hand-paper"></i>
-          </div>
-          <div class="control-button" data-control="scissors">
-            <i class="far fa-hand-scissors"></i>
-          </div>
+      </div>
+      <div class="score-board">
+        <div class="player-1-score">
+          Score:
+          <div class="player-1-score score" id="player-1-points">0</div>
+        </div>
+
+        <div class="player-2-score">
+          Score:
+          <div class="player-2-score score" id="player-2-points">0</div>
         </div>
       </div>
       <div class="hand player-2">
-        <div class="name-div">
-          <h4 class="player-text">Player 2</h4>
-          <h2 id="nickname-display-2" class="name-display"></h2>
-        </div>
         <div class="p2-hand">
           <div id="p2-f1" class="finger-fist finger-1"></div>
           <div id="p2-f2" class="finger-fist finger-2"></div>
@@ -72,16 +64,40 @@
           <div id="p2-t3" class="palm-fist"></div>
           <div class="palm"></div>
         </div>
-        <div id="player-2-controls" class="controls p-2">
-          <div class="control-button" data-control="rock">
-            <i class="far fa-hand-rock"></i>
-          </div>
-          <div class="control-button" data-control="paper">
-            <i class="far fa-hand-paper"></i>
-          </div>
-          <div class="control-button" data-control="scissors">
-            <i class="far fa-hand-scissors"></i>
-          </div>
+      </div>
+    </div>
+    <div class="ui-bottom">
+      <div class="name-div player-1">
+        <h4 class="player-text">Player 1</h4>
+        <h2 id="nickname-display-1" class="name-display"></h2>
+      </div>
+
+      <div class="name-div player-2">
+        <h4 class="player-text">Player 2</h4>
+        <h2 id="nickname-display-2" class="name-display"></h2>
+      </div>
+    </div>
+    <div class="ui-controls">
+      <div id="player-1-controls" class="controls player-1 p-1">
+        <div class="control-button" data-control="rock">
+          <i class="far fa-hand-rock"></i>
+        </div>
+        <div class="control-button" data-control="paper">
+          <i class="far fa-hand-paper"></i>
+        </div>
+        <div class="control-button" data-control="scissors">
+          <i class="far fa-hand-scissors"></i>
+        </div>
+      </div>
+      <div id="player-2-controls" class="controls player-2 p-2">
+        <div class="control-button" data-control="rock">
+          <i class="far fa-hand-rock"></i>
+        </div>
+        <div class="control-button" data-control="paper">
+          <i class="far fa-hand-paper"></i>
+        </div>
+        <div class="control-button" data-control="scissors">
+          <i class="far fa-hand-scissors"></i>
         </div>
       </div>
     </div>
