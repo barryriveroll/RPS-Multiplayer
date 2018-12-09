@@ -1,3 +1,4 @@
+// Database configure
 var config = {
   apiKey: "AIzaSyAbJ0qDwRJOpEvUT1VhbZNHhzM6uD45QgE",
   authDomain: "first-firebase-e4231.firebaseapp.com",
@@ -8,14 +9,13 @@ var config = {
 };
 firebase.initializeApp(config);
 var database = firebase.database();
+
+// Global variables
 var connectionsRef = database.ref("/connections");
 var gameTurnRef = database.ref("playerTurn");
 var connectedRef = database.ref(".info/connected");
-var gameLog = $("#game-log");
 var playerNum = 0;
 var playerTurn = 0;
-var player1Controls = $("#player-1-controls");
-var player2Controls = $("#player-2-controls");
 var player1ChoiceRef = database.ref("player1Choice");
 var player2ChoiceRef = database.ref("player2Choice");
 var player1Choice = "";
@@ -24,9 +24,9 @@ var player1Nickname = database.ref("player1Nickname");
 var player2Nickname = database.ref("player2Nickname");
 var nickname1 = "";
 var nickname2 = "";
-var p1PointsRef = database.ref("p1Points");
 var p1Points = 0;
 var p2Points = 0;
+var p1PointsRef = database.ref("p1Points");
 var p2PointsRef = database.ref("p2Points");
 var chatMessage = database.ref("chatMessage");
 var gameActive = false;
@@ -51,44 +51,71 @@ function restartGame(currentPlayer) {
   p2Points = 0;
   p1PointsRef.set(p1Points);
   p2PointsRef.set(p2Points);
+  gameTurnRef.set(0);
 }
 
 // When the client's connection state changes...
 connectedRef.on("value", function(snap) {
-  // If they are connected..
   if (snap.val()) {
-    // Add user to the connections list.
     var con = connectionsRef.push(true);
 
-    // Remove user from the connection list when they disconnect.
     con.onDisconnect().remove();
   }
 });
 
 // When first loaded or when the connections list changes...
 connectionsRef.on("value", function(snapshot) {
-  // Display the viewer count in the html.
   if (snapshot.numChildren() < 2) {
     if (gameActive) {
       restartGame(playerNum);
       gameActive = false;
     }
-    playerNum = 1;
+    playerNum = snapshot.numChildren();
     $("#game-text").append(
       "<p class='game-info'>Waiting for player 2 to connect...</p>"
     );
     player2Nickname.set("Waiting for P2...");
   } else {
     if (playerNum === 0) {
-      playerNum = 2;
+      playerNum = snapshot.numChildren();
+      if (playerNum > 2) {
+        disableInputs();
+      }
     }
-    $("#game-text").append("<p class='game-info'>P2 has connected.</p>");
 
-    player2Nickname.set("P2");
-    gameActive = true;
+    if (snapshot.numChildren() === 2) {
+      $("#game-text").append(
+        "<p class='game-info'>Player 2 has connected.</p>"
+      );
+      player2Nickname.set("P2");
+      gameActive = true;
+    }
   }
   $("#game-text").scrollTop($("#game-text")[0].scrollHeight);
-  init();
+  if (snapshot.numChildren() === 2) {
+    init();
+  }
+});
+
+player1ChoiceRef.on("value", function(snapshot) {
+  player1Choice = snapshot.val();
+});
+player2ChoiceRef.on("value", function(snapshot) {
+  player2Choice = snapshot.val();
+});
+player1Nickname.on("value", function(snapshot) {
+  nickname1 = snapshot.val();
+  $("#nickname-display-1").text(nickname1);
+});
+player2Nickname.on("value", function(snapshot) {
+  nickname2 = snapshot.val();
+  $("#nickname-display-2").text(nickname2);
+});
+p1PointsRef.on("value", function(snapshot) {
+  $("#player-1-points").text(snapshot.val());
+});
+p2PointsRef.on("value", function(snapshot) {
+  $("#player-2-points").text(snapshot.val());
 });
 
 gameTurnRef.on("value", function(snapshot) {
@@ -98,16 +125,15 @@ gameTurnRef.on("value", function(snapshot) {
     $("#player-2-controls").css("display", "none");
     evalWinner(); // game logic here
   } else if (playerTurn > 0) {
-    $("#game-text").append(
-      "<p class='game-info'>Player " + playerTurn + "'s turn!</p>"
-    );
     if (playerTurn === 1) {
       $("#player-2-controls").css("display", "none");
+      $("#game-text").append("<p class='game-info'>Player 1's turn!</p>");
       if (playerNum === playerTurn) {
         $("#player-1-controls").css("display", "block");
       }
     } else if (playerTurn === 2) {
       $("#player-1-controls").css("display", "none");
+      $("#game-text").append("<p class='game-info'>Player 2's turn!</p>");
       if (playerNum === playerTurn) {
         $("#player-2-controls").css("display", "block");
       }
@@ -125,28 +151,10 @@ chatMessage.on("value", function(snapshot) {
   }
 });
 
-player1ChoiceRef.on("value", function(snapshot) {
-  player1Choice = snapshot.val();
-});
-player2ChoiceRef.on("value", function(snapshot) {
-  player2Choice = snapshot.val();
-});
-player1Nickname.on("value", function(snapshot) {
-  nickname1 = snapshot.val();
-  // sessionStorage.setItem("nickname", nickname1);
-  $("#nickname-display-1").text(nickname1);
-});
-player2Nickname.on("value", function(snapshot) {
-  nickname2 = snapshot.val();
-  // sessionStorage.setItem("nickname", nickname2);
-  $("#nickname-display-2").text(nickname2);
-});
-p1PointsRef.on("value", function(snapshot) {
-  $("#player-1-points").text(snapshot.val());
-});
-p2PointsRef.on("value", function(snapshot) {
-  $("#player-2-points").text(snapshot.val());
-});
+function disableInputs() {
+  $(".nickname-div").hide();
+  $(".chat-div").hide();
+}
 
 function toggleHands() {
   if (player1Choice === "scissors") {
@@ -190,6 +198,8 @@ function evalWinner() {
     (player1Choice === "paper" && player2Choice === "rock")
   ) {
     //player 1 win
+    $("#p1-hand").addClass("bg-win");
+    $("#p2-hand").addClass("bg-lose");
     p1Points++;
     p1PointsRef.set(p1Points);
     $("#game-text").append(
@@ -197,28 +207,31 @@ function evalWinner() {
     );
   } else {
     // player 2 win
+    $("#p2-hand").addClass("bg-win");
+    $("#p1-hand").addClass("bg-lose");
     p2Points++;
     p2PointsRef.set(p2Points);
     $("#game-text").append(
       "<p class='game-info'>Player 2 wins with " + player2Choice + "!</p>"
     );
   }
-  gameTurnRef.set(1);
+
   $("#game-text").scrollTop($("#game-text")[0].scrollHeight);
 
   setTimeout(function() {
     toggleHands();
+    gameTurnRef.set(1);
+    $("#p1-hand")
+      .removeClass("bg-win")
+      .removeClass("bg-lose");
+    $("#p2-hand")
+      .removeClass("bg-win")
+      .removeClass("bg-lose");
   }, 2000);
 }
 
 function init() {
-  if (gameActive) {
-    gameTurnRef.set(1);
-  } else {
-    gameTurnRef.set(0);
-  }
   $("#nickname-display").text(nickname1);
-  // var localName = sessionStorage.getItem("nickname");
   if (playerNum === 1) {
     if (nickname1 != "") {
       player1Nickname.set(nickname1);
@@ -230,6 +243,12 @@ function init() {
   }
   p1PointsRef.set(p1Points);
   p2PointsRef.set(p2Points);
+
+  if (gameActive) {
+    gameTurnRef.set(1);
+  } else {
+    gameTurnRef.set(0);
+  }
 }
 
 $(document).ready(function() {
@@ -261,7 +280,6 @@ $(document).ready(function() {
     var nicknameInput = $("#nickname-input")
       .val()
       .trim();
-    // sessionStorage.setItem("nickname", nicknameInput);
     if (nicknameInput != "") {
       if (playerNum === 1) {
         player1Nickname.set(nicknameInput);

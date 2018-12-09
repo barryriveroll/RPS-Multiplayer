@@ -7,6 +7,11 @@
     <title>Rock, Paper, Scissors: Multiplayer</title>
     <link rel="stylesheet" href="assets/css/style.css" />
     <link
+      rel="shortcut icon"
+      type="image/png"
+      href="assets/images/favicon.png"
+    />
+    <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
       integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
@@ -24,13 +29,23 @@
     <div class="ui-top">
       <h1 class="title">Rock, Paper, Scissors: Multiplayer</h1>
       <form autocomplete="off" class="nickname-div">
-        <input type="text" id="nickname-input" maxlength="16" />
-        <input type="submit" id="nickname-button" value="Change nickname" />
+        <input
+          class="input-text"
+          type="text"
+          id="nickname-input"
+          maxlength="16"
+        />
+        <input
+          class="button"
+          type="submit"
+          id="nickname-button"
+          value="Change nickname"
+        />
       </form>
       <button id="connect-button">Play!</button>
     </div>
     <div class="game-board">
-      <div class="hand player-1">
+      <div class="hand player-1" id="p1-hand">
         <div class="p1-hand">
           <div id="p1-f1" class="finger-fist finger-1"></div>
           <div id="p1-f2" class="finger-fist finger-2"></div>
@@ -53,7 +68,7 @@
           <div class="player-2-score score" id="player-2-points">0</div>
         </div>
       </div>
-      <div class="hand player-2">
+      <div class="hand player-2" id="p2-hand">
         <div class="p2-hand">
           <div id="p2-f1" class="finger-fist finger-1"></div>
           <div id="p2-f2" class="finger-fist finger-2"></div>
@@ -71,7 +86,6 @@
         <h4 class="player-text">Player 1</h4>
         <h2 id="nickname-display-1" class="name-display"></h2>
       </div>
-
       <div class="name-div player-2">
         <h4 class="player-text">Player 2</h4>
         <h2 id="nickname-display-2" class="name-display"></h2>
@@ -104,8 +118,8 @@
     <div id="game-log">
       <div id="game-text"></div>
       <form autocomplete="off" class="chat-div">
-        <input type="text" id="chat-input" maxlength="100" />
-        <input type="submit" value="Send" id="chat-button" />
+        <input class="input-text" type="text" id="chat-input" maxlength="100" />
+        <input class="button" type="submit" value="Send" id="chat-button" />
       </form>
     </div>
   </body>
